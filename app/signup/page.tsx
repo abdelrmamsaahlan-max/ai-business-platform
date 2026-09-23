@@ -1,3 +1,4 @@
+import "../auth.css";
 "use client";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
