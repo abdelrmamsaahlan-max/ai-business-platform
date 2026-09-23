@@ -1,21 +1,93 @@
-const features=[
-  ["AI Assistant","Answer customer questions and turn conversations into useful business actions."],
-  ["Content Studio","Create structured marketing content from your business context."],
-  ["Automations","Connect repeatable workflows so routine work can run automatically."],
-  ["Business Dashboard","Keep customers, activity, usage and important actions in one place."]
+const features = [
+  { tag: "01", title: "Command Center", text: "See what matters, decide what to do next, and keep the whole business moving from one focused workspace." },
+  { tag: "02", title: "AI Workspace", text: "Turn business context into useful drafts, answers, plans, and decisions without jumping between tools." },
+  { tag: "03", title: "Workflow Engine", text: "Build repeatable automations for the work your team does again and again." },
+  { tag: "04", title: "Growth Console", text: "Track activity, usage, customers, and the signals that help you improve the business." },
 ];
 
-export default function Home(){
-  return <main>
-    <nav className="nav"><div className="brand">AI Business Platform</div><div className="navLinks"><a href="#features">Features</a><a href="#how">How it works</a><a className="button small" href="/login">Get started</a></div></nav>
-    <section className="hero">
-      <div className="badge">AI + Automation for modern businesses</div>
-      <h1>Run more of your business from one intelligent workspace.</h1>
-      <p>Connect your business data, AI tools and automations in one secure platform designed to reduce repetitive work.</p>
-      <div className="actions"><a className="button" href="/signup">Start building</a><a className="button ghost" href="#features">Explore features</a></div>
-    </section>
-    <section id="features" className="section"><div className="sectionHead"><span>Core platform</span><h2>Everything starts in one place.</h2></div><div className="grid">{features.map(([title,text])=><article className="card" key={title}><div className="icon">✦</div><h3>{title}</h3><p>{text}</p></article>)}</div></section>
-    <section id="how" className="section dark"><div className="sectionHead"><span>Architecture</span><h2>Built to scale safely.</h2><p>Next.js on Vercel, Supabase for authentication and data, automation through n8n, and payments through a supported payment provider when the business is ready.</p></div><div className="steps"><div><b>01</b><span>Secure account</span></div><div><b>02</b><span>Business workspace</span></div><div><b>03</b><span>AI tools</span></div><div><b>04</b><span>Automations</span></div></div></section>
-    <footer>© 2026 AI Business Platform · Built with security and responsible automation in mind.</footer>
-  </main>;
+const signals = ["Less busywork", "More consistency", "One operating layer"];
+
+export default function Home() {
+  return (
+    <main>
+      <nav className="nav">
+        <a className="wordmark" href="/">A/B<span>·</span>P</a>
+        <div className="navLinks">
+          <a href="#product">Product</a>
+          <a href="#system">System</a>
+          <a className="navCta" href="/login">Enter workspace <span>↗</span></a>
+        </div>
+      </nav>
+
+      <section className="hero">
+        <div className="heroCopy">
+          <div className="eyebrow"><span className="pulseDot" /> Intelligent operations, without the clutter.</div>
+          <h1>Build a business that <em>moves.</em></h1>
+          <p className="heroLead">
+            AI, workflows, and business intelligence brought together in one calm operating layer.
+            Less switching. Less repetition. More time for the work that matters.
+          </p>
+          <div className="actions">
+            <a className="primaryButton" href="/signup">Create your workspace <span>→</span></a>
+            <a className="textButton" href="#product">See the system <span>↓</span></a>
+          </div>
+          <div className="signalRow">
+            {signals.map((signal) => <span key={signal}>{signal}</span>)}
+          </div>
+        </div>
+
+        <div className="heroVisual" aria-hidden="true">
+          <div className="orb orbOne" />
+          <div className="orb orbTwo" />
+          <div className="orbit orbitOne" />
+          <div className="orbit orbitTwo" />
+          <div className="core">
+            <div className="coreMark">A/B<span>·</span>P</div>
+            <div className="coreLine" />
+            <small>OPERATING LAYER</small>
+          </div>
+          <div className="floatCard cardTop"><span>AI</span><b>Context ready</b><small>Workspace intelligence</small></div>
+          <div className="floatCard cardBottom"><span>↗</span><b>12 workflows</b><small>Running quietly</small></div>
+        </div>
+      </section>
+
+      <section id="product" className="section productSection">
+        <div className="sectionIntro">
+          <span className="sectionNumber">01 / PRODUCT</span>
+          <h2>One system.<br /><em>Four powerful layers.</em></h2>
+          <p>Designed around how a real business operates—not around a collection of disconnected AI features.</p>
+        </div>
+        <div className="featureGrid">
+          {features.map((feature) => (
+            <article className="featureCard" key={feature.tag}>
+              <div className="featureTop"><span>{feature.tag}</span><span>↗</span></div>
+              <h3>{feature.title}</h3>
+              <p>{feature.text}</p>
+              <div className="cardLine" />
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="system" className="systemSection">
+        <div className="systemGrid">
+          <div>
+            <span className="sectionNumber">02 / SYSTEM</span>
+            <h2>Quiet on the surface.<br /><em>Serious underneath.</em></h2>
+          </div>
+          <div className="systemText">
+            <p>Secure accounts. Isolated workspaces. Server-side authorization. Validated inputs. Protected secrets. Auditable automation.</p>
+            <p>The product will grow feature by feature, while the foundation stays disciplined from day one.</p>
+            <a href="#product" className="outlineButton">Explore the foundation <span>↗</span></a>
+          </div>
+        </div>
+        <div className="ticker"><span>AI</span><span>AUTOMATION</span><span>DATA</span><span>WORKFLOWS</span><span>SECURITY</span><span>AI</span><span>AUTOMATION</span></div>
+      </section>
+
+      <footer>
+        <div className="wordmark">A/B<span>·</span>P</div>
+        <p>AI Business Platform · Built for focused operators.</p>
+      </footer>
+    </main>
+  );
 }
