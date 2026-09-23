@@ -1,0 +1,1 @@
+import "./dashboard.css";\nexport default function DashboardLayout({ children }: { children: React.ReactNode }) { return children; }
