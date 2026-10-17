@@ -1,5 +1,6 @@
-const fs = require("node:fs");
-const path = require("node:path");
+import fs from "node:fs";
+import path from "node:path";
+
 const root = process.cwd();
 const dist = path.join(root, "dist");
 fs.mkdirSync(dist, { recursive: true });
