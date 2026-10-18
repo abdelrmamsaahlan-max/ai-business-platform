@@ -11,6 +11,7 @@ const products=[
 {id:"light1",name:"Monitor light bar",category:"Desk setup",tag:"LIGHTING",desc:"A clean lighting idea for the desk or monitor.",art:"light",detail:"Check dimensions, controls, power input, plug, heat and relevant safety documentation."},
 {id:"open1",name:"Inspected open-box gear",category:"Open box",tag:"RE:PLAY",desc:"A future category for condition-graded open-box products.",art:"open",detail:"Only launch after inspection, condition grading, accurate photos, full disclosure, warranty status and return terms are set."}
 ];
+const whatsappNumber="201142497622";
 let activeFilter="All gear",searchTerm="",sortMode="featured",cart={},wishlist=new Set();
 const $=s=>document.querySelector(s);
 const order=new Map(products.map((p,i)=>[p.id,i]));
@@ -94,6 +95,15 @@ $("#close-wishlist").addEventListener("click",()=>closeLayer($("#wishlist-overla
 $("#wishlist-browse").addEventListener("click",()=>{closeLayer($("#wishlist-overlay"));$("#categories").scrollIntoView({behavior:"smooth"})});
 $("#wishlist-items").addEventListener("click",e=>{const remove=e.target.closest("[data-wish-remove]"),add=e.target.closest("[data-add]");if(remove)wishlist.delete(remove.dataset.wishRemove);if(add)cart[add.dataset.add]=(cart[add.dataset.add]||0)+1;renderWishlist();renderProducts();renderCart();if(add){closeLayer($("#wishlist-overlay"));openLayer($("#cart-overlay"))}});
 $("#checkout-open").addEventListener("click",()=>openLayer($("#checkout-modal")));
+$("#whatsapp-order-form").addEventListener("submit",e=>{
+e.preventDefault();
+const form=new FormData(e.currentTarget),name=String(form.get("name")||"").trim(),area=String(form.get("area")||"").trim();
+const lines=products.filter(p=>cart[p.id]).map(p=>"• "+p.name+" × "+cart[p.id]).join("\n");
+if(!lines){closeLayer($("#checkout-modal"));return}
+const message=["Hi Pixelz! I'd like to ask about these products:","",lines,"","Please confirm the exact model, current availability, final price and delivery cost before I decide.","","Name: "+name,"City / area: "+area,"This is an enquiry only, not a confirmed order."].join("\n");
+window.open("https://wa.me/"+whatsappNumber+"?text="+encodeURIComponent(message),"_blank","noopener,noreferrer");
+closeLayer($("#checkout-modal"));
+});
 document.body.addEventListener("click",e=>{const c=e.target.closest("[data-close]");if(c)closeLayer(c.closest(".modal-layer"));const a=e.target.closest("[data-modal-add]");if(a){const id=a.dataset.modalAdd;closeLayer($("#product-modal"));addToCart(id)}});
 document.querySelectorAll(".overlay,.modal-layer").forEach(layer=>layer.addEventListener("click",e=>{if(e.target===layer)closeLayer(layer)}));
 $("#menu-toggle").addEventListener("click",()=>{const open=$("#mobile-nav").hidden;$("#mobile-nav").hidden=!open;$("#menu-toggle").setAttribute("aria-expanded",String(open));$("#menu-toggle").textContent=open?"×":"☰"});

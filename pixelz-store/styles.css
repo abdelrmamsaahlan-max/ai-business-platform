@@ -48,3 +48,8 @@
   .header { border-bottom-width: 2px; }
   .hero-art { box-shadow: 3px 3px 0 #c7c7c2; }
 }
+
+/* WhatsApp enquiry fields */
+.enquiry-field{display:grid;gap:7px;margin:14px 0;color:#555;font:800 9px "Courier New",monospace;letter-spacing:.08em}
+.enquiry-field input{height:44px;border:1px solid var(--line);padding:0 12px;background:#fff;color:var(--ink);font:12px Arial,Helvetica,sans-serif;letter-spacing:0}
+.enquiry-field input:focus{outline:2px solid #111;outline-offset:1px}
