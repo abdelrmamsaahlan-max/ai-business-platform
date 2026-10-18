@@ -20,7 +20,7 @@ function mobile(v){
   const western=String(v)
     .replace(/[٠-٩]/g,ch=>String("٠١٢٣٤٥٦٧٨٩".indexOf(ch)))
     .replace(/[۰-۹]/g,ch=>String("۰۱۲۳۴۵۶۷۸۹".indexOf(ch)));
-  let d=western.replace(/\\D/g,"");
+  let d=western.replace(/\D/g,"");
   if(d.startsWith("0020"))d="0"+d.slice(4);
   else if(d.startsWith("20")&&d.length===12)d="0"+d.slice(2);
   return d;
