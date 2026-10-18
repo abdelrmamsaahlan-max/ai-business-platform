@@ -1,10 +1,10 @@
-const products=window.PIXELZ_PRODUCTS||[],waNumber="201142497622";
+const products=window.PIXELZ_PRODUCTS||[];
 let cart=load("pixelz-cart",{}),filter="all",query="";
 const $=s=>document.querySelector(s);
 function load(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch{return d}}
 function price(n){return new Intl.NumberFormat("en-EG").format(n)+" ج.م"}
 function save(){localStorage.setItem("pixelz-cart",JSON.stringify(cart));renderCart()}
-function art(p){if(p.image)return '<img class="product-photo" src="'+p.image+'" alt="'+p.name.replace(/"/g,"&quot;")+'" loading="lazy" decoding="async" referrerpolicy="no-referrer">';return p.type==="pad"?'<div class="gear-art art-pad"><span class="pad-word">PZ /</span><b>PIXELZ</b><span class="pad-caption">تصوير توضيحي</span></div>':'<div class="gear-art art-headset"></div>'}
+function fallback(type){return type==="keyboard"?'<div class="gear-art art-keyboard">'+Array.from({length:24},()=>'<i></i>').join("")+'</div>':type==="mouse"?'<div class="gear-art art-mouse"></div>':type==="pad"?'<div class="gear-art art-pad"><span class="pad-word">PZ /</span><b>PIXELZ</b><span class="pad-caption">تصوير توضيحي</span></div>':'<div class="gear-art art-headset"></div>'}\nfunction art(p){if(p.image)return '<img class="product-photo" src="'+p.image+'" alt="'+p.name.replace(/"/g,"&quot;")+'" loading="lazy" decoding="async" referrerpolicy="no-referrer">';return fallback(p.type)}
 function qty(){return Object.values(cart).reduce((s,n)=>s+(Number(n)||0),0)}
 function render(){
 const shown=products.filter(p=>(filter==="all"||p.category===filter)&&(p.name+" "+p.en+" "+p.desc+" "+p.category).toLowerCase().includes(query));
@@ -25,7 +25,7 @@ function add(id){if(!products.some(p=>p.id===id))return;cart[id]=(Number(cart[id
 $("#filter-inline").addEventListener("click",e=>{const b=e.target.closest("[data-filter]");if(b)filterBy(b.dataset.filter)});
 document.querySelector(".category-list").addEventListener("click",e=>{const b=e.target.closest("[data-filter]");if(b){filterBy(b.dataset.filter);$("#shop").scrollIntoView({behavior:"smooth"})}});
 $("#product-grid").addEventListener("click",e=>{const b=e.target.closest("[data-add]");if(b){e.preventDefault();add(b.dataset.add)}});
-$("#product-grid").addEventListener("error",e=>{const img=e.target.closest(".product-photo");if(img){const visual=img.closest(".product-visual");if(visual&&visual.classList.contains("pad"))img.replaceWith(document.createRange().createContextualFragment(art({type:"pad"}))) }},true);
+$("#product-grid").addEventListener("error",e=>{const img=e.target.closest(".product-photo");if(img){const visual=img.closest(".product-visual"),type=visual&&["keyboard","mouse","pad","headset"].find(t=>visual.classList.contains(t))||"headset";img.replaceWith(document.createRange().createContextualFragment(fallback(type)))}},true);
 function search(v){query=v.trim().toLowerCase();$("#search-input").value=v;$("#grid-search").value=v;render()}
 $("#search-input").addEventListener("input",e=>search(e.target.value));$("#grid-search").addEventListener("input",e=>search(e.target.value));
 $("#open-cart").addEventListener("click",open);$("#close-cart").addEventListener("click",close);$("#keep-shopping").addEventListener("click",close);$("#checkout-open").addEventListener("click",()=>{if(qty())location.href="/checkout.html"});

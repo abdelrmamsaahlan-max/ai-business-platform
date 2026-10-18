@@ -1,16 +1,14 @@
 # PIXELZ Store
 
-Independent static storefront prototype for gaming setup accessories in Egypt.
+Arabic RTL storefront for PIXELZ gaming and setup accessories.
 
-- Category search and filters.
-- Functional pre-launch shopping bag with quantity adjustment and remove.
-- Product details, wishlist, and an adjustable pre-launch shortlist.
-- WhatsApp product enquiries to the Pixelz number supplied by the store owner. Visitors review and send their own message; no checkout, order acceptance, or payment occurs on the site.
-- Sourcing research and buyer/legal-readiness pages.
-- No payment processing, server-side customer-data collection, analytics, inventory storage, or supplier sync.
+- Product catalog with search and category filters.
+- Individual product pages with photos, descriptions and specifications.
+- Shopping bag with quantity controls and a WhatsApp checkout request.
+- Cash-on-delivery request flow; card payments are not active yet.
 
 ## Vercel
-Set root directory to pixelz-store, framework preset to Other/None, build command to npm run build, and output directory to dist. The build script copies the static site without downloading dependencies.
+Set the project root directory to \`pixelz-store\`, framework preset to Other/None, build command to \`npm run build\`, and output directory to \`dist\`. The build copies the static storefront without installing dependencies.
 
-## Before selling
-Verify supplier and resale terms in writing; exact product costs/stock; delivery, customs, warranty and returns; legal seller identity/registrations; invoice and privacy requirements; buyer protection; and an approved merchant account. The founders are minors, so a parent/guardian should lead the legal and financial setup.
+## Order flow
+The checkout prepares a WhatsApp message with the selected items and delivery details. A buyer reviews and sends that message to PIXELZ; the store then confirms availability, shipping and payment-on-delivery details. The website does not collect card details.
