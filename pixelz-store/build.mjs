@@ -6,12 +6,17 @@ const root = path.dirname(fileURLToPath(import.meta.url));
 const dist = path.join(root, "dist");
 const files = [
   "index.html",
+  "shop.html",
   "product.html",
+  "cart.html",
   "checkout.html",
+  "support.html",
   "styles.css",
   "app.js",
   "products.js",
+  "shop.js",
   "product-detail.js",
+  "cart.js",
   "checkout.js",
   "legal.html",
   "pixelz-logo.svg",
