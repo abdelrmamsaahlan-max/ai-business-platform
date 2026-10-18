@@ -1,6 +1,7 @@
 const products=window.PIXELZ_PRODUCTS||[],id=new URLSearchParams(location.search).get("id"),p=products.find(x=>x.id===id),$=s=>document.querySelector(s);
 const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function money(n){return new Intl.NumberFormat("en-EG").format(n)+" ج.م"}
+function categoryLabel(v){return ({"Keyboard":"كيبوردات","Mouse":"ماوسات","Mouse pad":"ماوس باد","Headset":"سماعات","Laptop cooler":"تبريد لابتوب"})[v]||v}
 function fallback(){return '<div class="product-image-fallback product-image-fallback-large"><strong>PIXELZ</strong><span>صورة المنتج غير متاحة حاليًا</span></div>'}
 function readCart(){try{const raw=JSON.parse(localStorage.getItem("pixelz-cart"))||{},clean={};if(!raw||typeof raw!=="object"||Array.isArray(raw))return clean;for(const product of products){const q=Math.floor(Number(raw[product.id])||0);if(q>0)clean[product.id]=Math.min(99,q)}return clean}catch{return {}}}
 let cart=readCart(),toastTimer;
@@ -14,7 +15,7 @@ if(!p)location.replace("/shop.html");else{
  $("#crumb-name").textContent=p.name;
  $("#gallery-index").textContent="PZ / "+String(products.indexOf(p)+1).padStart(2,"0");
  $("#product-badge").textContent=p.badge;
- $("#product-category").textContent=p.category;
+ $("#product-category").textContent=categoryLabel(p.category);
  $("#product-en").textContent=p.en;
  $("#product-title").textContent=p.name;
  $("#product-short").textContent=p.desc;
