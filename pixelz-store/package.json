@@ -2,5 +2,8 @@
   "name": "pixelz-store",
   "version": "1.0.0",
   "private": true,
-  "scripts": { "build": "node build.mjs" }
+  "scripts": {
+    "test": "node test.mjs",
+    "build": "npm test && node build.mjs"
+  }
 }
