@@ -1,0 +1,10 @@
+const products=window.PIXELZ_PRODUCTS||[],id=new URLSearchParams(location.search).get("id"),p=products.find(x=>x.id===id),$=s=>document.querySelector(s);
+function money(n){return new Intl.NumberFormat("en-EG").format(n)+" ج.م"}
+function fallback(){return '<div class="gear-art art-pad"><span class="pad-word">PZ /</span><b>PIXELZ</b><span class="pad-caption">تصوير توضيحي</span></div>'}
+if(!p)location.replace("/#shop");else{
+document.title=p.name+" | PIXELZ";$("#crumb-name").textContent=p.name;$("#gallery-index").textContent="PZ / "+String(products.indexOf(p)+1).padStart(2,"0");$("#product-badge").textContent=p.badge;$("#product-category").textContent=p.category;$("#product-en").textContent=p.en;$("#product-title").textContent=p.name;$("#product-short").textContent=p.desc;$("#product-price").textContent=money(p.price);$("#product-details").textContent=p.details;$("#product-image").innerHTML=p.image?'<img class="product-main-photo" src="'+p.image+'" alt="'+p.name+'" fetchpriority="high" referrerpolicy="no-referrer">':fallback();
+$("#spec-rows").innerHTML=p.specs.map(r=>'<tr><th scope="row">'+r[0]+'</th><td>'+r[1]+'</td></tr>').join("");$("#buy-product").href="/checkout.html?buy="+encodeURIComponent(p.id);
+$("#related-products").innerHTML=products.filter(x=>x.id!==p.id).slice(0,3).map(x=>'<a class="related-card" href="/product.html?id='+encodeURIComponent(x.id)+'"><span>'+x.category+' / PIXELZ</span><b>'+x.name+'</b><strong>'+money(x.price)+'</strong><i>التفاصيل ↗</i></a>').join("");
+let timer;$("#add-product").addEventListener("click",()=>{let c={};try{c=JSON.parse(localStorage.getItem("pixelz-cart"))||{}}catch{}c[p.id]=(Number(c[p.id])||0)+1;localStorage.setItem("pixelz-cart",JSON.stringify(c));$("#cart-count").textContent=Object.values(c).reduce((s,n)=>s+(Number(n)||0),0);$("#toast").textContent="اتضاف للسلة ✓";$("#toast").classList.add("show");clearTimeout(timer);timer=setTimeout(()=>$("#toast").classList.remove("show"),1700)});
+$("#product-image").addEventListener("error",e=>{if(e.target.tagName==="IMG")e.target.replaceWith(document.createRange().createContextualFragment(fallback()))},true);
+}
