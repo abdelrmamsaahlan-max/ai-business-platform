@@ -18,13 +18,13 @@ function save(){
   renderCart();
   return persisted;
 }
-function fallback(type){return type==="keyboard"?'<div class="gear-art art-keyboard">'+Array.from({length:24},()=>'<i></i>').join("")+'</div>':type==="mouse"?'<div class="gear-art art-mouse"></div>':type==="pad"?'<div class="gear-art art-pad"><span class="pad-word">PZ /</span><b>PIXELZ</b><span class="pad-caption">تصوير توضيحي</span></div>':type==="cooler"?'<div class="gear-art art-cooler"><span>ICE / 08</span><i></i><i></i><i></i><i></i></div>':'<div class="gear-art art-headset"></div>'}
+function fallback(){return '<div class="product-image-fallback"><strong>PIXELZ</strong><span>الصورة غير متاحة حاليًا</span></div>'}
 function art(p){if(p.image)return '<img class="product-photo" src="'+p.image+'" alt="'+p.name.replace(/"/g,"&quot;")+'" loading="lazy" decoding="async" referrerpolicy="no-referrer">';return fallback(p.type)}
 function qty(){return Object.values(cart).reduce((s,n)=>s+(Number(n)||0),0)}
 function render(){
 const shown=products.filter(p=>(filter==="all"||p.category===filter)&&(p.name+" "+p.en+" "+p.desc+" "+p.category).toLowerCase().includes(query));
 $("#result-count").textContent=shown.length+" "+(shown.length===1?"منتج":"منتجات");
-$("#product-grid").innerHTML=shown.length?shown.map((p,i)=>'<article class="product-card"><a class="card-main" href="/product.html?id='+encodeURIComponent(p.id)+'"><div class="product-visual '+p.type+'"><span class="visual-index">PZ / '+String(i+1).padStart(2,"0")+'</span>'+art(p)+'<span class="visual-label">PIXELZ / GEAR STUDY</span></div><div class="product-topline"><span class="product-category">'+p.en.split(" ")[0]+' / '+p.category+'</span><span class="product-badge">'+p.badge+'</span></div><h3>'+p.name+'</h3><p class="product-desc">'+p.desc+'</p></a><div class="product-meta"><span>السعر</span><b>'+price(p.price)+'</b></div><div class="product-actions"><button class="add-button" data-add="'+p.id+'">ضيف للسلة <span>＋</span></button><a class="details-button" href="/product.html?id='+encodeURIComponent(p.id)+'" aria-label="تفاصيل '+p.name+'">التفاصيل ↗</a></div></article>').join(""):'<div class="empty-state"><b>ملقيناش حاجة بالبحث ده</b><p>جرّب اسم تاني أو اختار تصنيف مختلف.</p></div>';
+$("#product-grid").innerHTML=shown.length?shown.map((p,i)=>'<article class="product-card"><a class="card-main" href="/product.html?id='+encodeURIComponent(p.id)+'"><div class="product-visual '+p.type+'">'+art(p)+'</div><div class="product-topline"><span class="product-category">'+p.en.split(" ")[0]+' / '+p.category+'</span></div><h3>'+p.name+'</h3><p class="product-desc">'+p.desc+'</p></a><div class="product-meta"><span>السعر</span><b>'+price(p.price)+'</b></div><div class="product-actions"><button class="add-button" data-add="'+p.id+'">ضيف للسلة <span>＋</span></button><a class="details-button" href="/product.html?id='+encodeURIComponent(p.id)+'" aria-label="تفاصيل '+p.name+'">التفاصيل ↗</a></div></article>').join(""):'<div class="empty-state"><b>ملقيناش حاجة بالبحث ده</b><p>جرّب اسم تاني أو اختار تصنيف مختلف.</p></div>';
 }
 function filterBy(v){filter=v;document.querySelectorAll("[data-filter]").forEach(b=>b.classList.toggle("active",b.dataset.filter===v));render()}
 function renderCart(){
@@ -60,7 +60,7 @@ function syncCatalogCounts(){
 $("#filter-inline").addEventListener("click",e=>{const b=e.target.closest("[data-filter]");if(b)filterBy(b.dataset.filter)});
 document.querySelector(".category-list").addEventListener("click",e=>{const b=e.target.closest("[data-filter]");if(b){filterBy(b.dataset.filter);$("#shop").scrollIntoView({behavior:"smooth"})}});
 $("#product-grid").addEventListener("click",e=>{const b=e.target.closest("[data-add]");if(b){e.preventDefault();add(b.dataset.add)}});
-$("#product-grid").addEventListener("error",e=>{const img=e.target.closest(".product-photo");if(img){const visual=img.closest(".product-visual"),type=visual&&["keyboard","mouse","pad","headset","cooler"].find(t=>visual.classList.contains(t))||"headset";img.replaceWith(document.createRange().createContextualFragment(fallback(type)))}},true);
+$("#product-grid").addEventListener("error",e=>{const img=e.target.closest(".product-photo");if(img){const visual=img.closest(".product-visual"),type=visual&&["keyboard","mouse","pad","headset","cooler"].find(t=>visual.classList.contains(t))||"headset";img.replaceWith(document.createRange().createContextualFragment(fallback()))}},true);
 function search(v){query=v.trim().toLowerCase();$("#search-input").value=v;$("#grid-search").value=v;render()}
 $("#search-input").addEventListener("input",e=>search(e.target.value));$("#grid-search").addEventListener("input",e=>search(e.target.value));
 $("#open-cart").addEventListener("click",open);$("#close-cart").addEventListener("click",close);$("#keep-shopping").addEventListener("click",close);$("#checkout-open").addEventListener("click",()=>{if(qty())location.href="/checkout.html"});
@@ -83,7 +83,7 @@ if(heroMain){
     heroMain.dataset.fallbackUsed="1";
     const frame=heroMain.parentElement;
     heroMain.remove();frame.classList.add("image-fallback");
-    frame.insertAdjacentHTML("beforeend",fallback("keyboard"));
+    frame.insertAdjacentHTML("beforeend",fallback());
   };
   heroMain.addEventListener("error",useHeroFallback,{once:true});
   if(heroMain.complete&&heroMain.naturalWidth===0)useHeroFallback();
