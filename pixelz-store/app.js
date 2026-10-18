@@ -4,7 +4,8 @@ const $=s=>document.querySelector(s);
 function load(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch{return d}}
 function price(n){return new Intl.NumberFormat("en-EG").format(n)+" ج.م"}
 function save(){localStorage.setItem("pixelz-cart",JSON.stringify(cart));renderCart()}
-function fallback(type){return type==="keyboard"?'<div class="gear-art art-keyboard">'+Array.from({length:24},()=>'<i></i>').join("")+'</div>':type==="mouse"?'<div class="gear-art art-mouse"></div>':type==="pad"?'<div class="gear-art art-pad"><span class="pad-word">PZ /</span><b>PIXELZ</b><span class="pad-caption">تصوير توضيحي</span></div>':'<div class="gear-art art-headset"></div>'}\nfunction art(p){if(p.image)return '<img class="product-photo" src="'+p.image+'" alt="'+p.name.replace(/"/g,"&quot;")+'" loading="lazy" decoding="async" referrerpolicy="no-referrer">';return fallback(p.type)}
+function fallback(type){return type==="keyboard"?'<div class="gear-art art-keyboard">'+Array.from({length:24},()=>'<i></i>').join("")+'</div>':type==="mouse"?'<div class="gear-art art-mouse"></div>':type==="pad"?'<div class="gear-art art-pad"><span class="pad-word">PZ /</span><b>PIXELZ</b><span class="pad-caption">تصوير توضيحي</span></div>':'<div class="gear-art art-headset"></div>'}
+function art(p){if(p.image)return '<img class="product-photo" src="'+p.image+'" alt="'+p.name.replace(/"/g,"&quot;")+'" loading="lazy" decoding="async" referrerpolicy="no-referrer">';return fallback(p.type)}
 function qty(){return Object.values(cart).reduce((s,n)=>s+(Number(n)||0),0)}
 function render(){
 const shown=products.filter(p=>(filter==="all"||p.category===filter)&&(p.name+" "+p.en+" "+p.desc+" "+p.category).toLowerCase().includes(query));
