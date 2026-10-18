@@ -43,7 +43,7 @@ function filterBy(v){filter=v;document.querySelectorAll("[data-filter]").forEach
 function renderCart(){
 $("#cart-count").textContent=qty();$("#cart-title-count").textContent="("+qty()+")";
 const items=products.filter(p=>Number(cart[p.id])>0);
-$("#cart-items").innerHTML=items.map(p=>'<div class="cart-row"><div class="cart-thumb">'+(p.image?'<img src="'+p.image+'" alt="" loading="lazy">':'<span>PZ.</span>')+'</div><div><h3>'+p.name+'</h3><p>'+price(p.price)+' للقطعة</p><div class="cart-controls"><div class="qty-control"><button data-qty="-1" data-id="'+p.id+'" aria-label="قلل الكمية">−</button><b>'+Number(cart[p.id])+'</b><button data-qty="1" data-id="'+p.id+'" aria-label="زود الكمية">+</button></div><button class="remove-item" data-remove="'+p.id+'">شيل</button></div></div><b class="cart-line-price">'+price(p.price*Number(cart[p.id]))+'</b></div>').join("");
+$("#cart-items").innerHTML=items.map(p=>'<div class="cart-row" data-id="'+p.id+'"><div class="cart-thumb">'+(p.image?'<img src="'+p.image+'" alt="" loading="lazy" decoding="async">':productIconSvg(p.type))+'</div><div><h3>'+p.name+'</h3><p>'+price(p.price)+' للقطعة</p><div class="cart-controls"><div class="qty-control"><button data-qty="-1" data-id="'+p.id+'" aria-label="قلل الكمية">−</button><b>'+Number(cart[p.id])+'</b><button data-qty="1" data-id="'+p.id+'" aria-label="زود الكمية">+</button></div><button class="remove-item" data-remove="'+p.id+'">شيل</button></div></div><b class="cart-line-price">'+price(p.price*Number(cart[p.id]))+'</b></div>').join("");
 $("#cart-subtotal").textContent=price(items.reduce((s,p)=>s+p.price*Number(cart[p.id]),0));
 $("#cart-empty").hidden=items.length>0;$("#cart-items").hidden=!items.length;$("#cart-sum").hidden=!items.length;$("#checkout-open").disabled=!items.length;
 }
@@ -86,7 +86,7 @@ const baseRender=render;render=function(){baseRender();if(observer)document.quer
 $("#cart-items").addEventListener("error",e=>{
   const img=e.target.closest("img");
   if(img&&img.parentElement.classList.contains("cart-thumb")){
-    const mark=document.createElement("span");mark.className="cart-thumb-fallback";mark.innerHTML=productIconSvg("keyboard");mark.setAttribute("aria-hidden","true");img.replaceWith(mark);
+    const mark=document.createElement("span");mark.className="cart-thumb-fallback";const row=img.closest(".cart-row"),item=products.find(p=>p.id===row?.dataset.id);mark.innerHTML=productIconSvg(item?.type||"all");mark.setAttribute("aria-hidden","true");img.replaceWith(mark);
   }
 },true);
 const heroMain=$(".hero-image-frame img");
@@ -104,7 +104,7 @@ if(heroMain){
 const promoImage=$(".hero-promo-card img");
 if(promoImage){
   const usePromoFallback=()=>{
-    const mark=document.createElement("span");mark.className="promo-image-placeholder";mark.textContent="PZ.";
+    const mark=document.createElement("span");mark.className="promo-image-placeholder";mark.innerHTML=productIconSvg("all");
     promoImage.replaceWith(mark);
   };
   promoImage.addEventListener("error",usePromoFallback,{once:true});
