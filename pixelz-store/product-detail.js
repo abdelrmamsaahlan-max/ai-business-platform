@@ -36,7 +36,7 @@ if(!p)location.replace("/shop.html");else{
  const sameCategory=products.filter(x=>x.id!==p.id&&x.category===p.category);
  const related=(sameCategory.length?sameCategory:products.filter(x=>x.id!==p.id)).slice(0,3);
  $("#related-products").innerHTML=related.map(x=>'<a class="related-card" href="/product.html?id='+encodeURIComponent(x.id)+'"><span>'+esc(x.category)+' / PIXELZ</span><b>'+esc(x.name)+'</b><strong>'+money(x.price)+'</strong><i>التفاصيل ↗</i></a>').join("");
- if(window.PIXELZ_PREVIEW_MODE){const addButton=$("#add-product"),buyButton=$("#buy-product"),quantityRow=document.querySelector(".product-qty-row");if(addButton){addButton.disabled=true;addButton.textContent="الطلبات متوقفة مؤقتًا"}if(buyButton){buyButton.href="/legal.html";buyButton.textContent="حالة المتجر والسياسات ↗"}if(quantityRow)quantityRow.hidden=true}
+ if(window.PIXELZ_PREVIEW_MODE){const addButton=$("#add-product"),buyButton=$("#buy-product"),quantityRow=document.querySelector(".product-qty-row");if(addButton){addButton.disabled=true;addButton.textContent="الطلب متوقف مؤقتًا"}if(buyButton){buyButton.href="/legal.html";buyButton.textContent="حالة المتجر والسياسات ↗"}if(quantityRow)quantityRow.hidden=true}
  const quantity=$("#product-quantity");
  $("#quantity-minus").addEventListener("click",()=>{quantity.value=Math.max(1,selectedQuantity()-1);updateBuyLink()});
  $("#quantity-plus").addEventListener("click",()=>{quantity.value=Math.min(99,selectedQuantity()+1);updateBuyLink()});
