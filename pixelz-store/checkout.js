@@ -12,7 +12,7 @@ function read(){
   }catch{return {}}
 }
 function money(n){return new Intl.NumberFormat("en-EG").format(n)+" ج.م"}
-const buy=params.get("buy"),saved=read(),cart=buy?(products.some(p=>p.id===buy)?{[buy]:1}:{}):saved,items=products.filter(p=>Number(cart[p.id])>0),form=$("#checkout-form");
+const buy=params.get("buy"),saved=read(),requestedQuantity=Math.min(99,Math.max(1,Math.floor(Number(params.get("quantity"))||1))),cart=buy?(products.some(p=>p.id===buy)?{[buy]:requestedQuantity}:{}):saved,items=products.filter(p=>Number(cart[p.id])>0),form=$("#checkout-form");
 function photo(p){return p.image?'<img src="'+p.image+'" alt="" loading="lazy" referrerpolicy="no-referrer">':'<div class="summary-placeholder">PZ.</div>'}
 function render(){if(!items.length){$("#checkout-items").innerHTML='<div class="checkout-empty"><b>السلة فاضية</b><p>اختار منتج من المتجر وارجع هنا.</p><a class="cta-primary" href="/#shop">شوف المنتجات ↙</a></div>';form.hidden=true;return}
 const q=p=>Number(cart[p.id])||0,total=items.reduce((s,p)=>s+p.price*q(p),0);$("#summary-count").textContent="("+items.reduce((s,p)=>s+q(p),0)+")";$("#checkout-items").innerHTML=items.map(p=>'<div class="checkout-item"><div class="checkout-thumb">'+photo(p)+'</div><div class="checkout-item-copy"><b>'+p.name+'</b><small>الكمية: '+q(p)+'</small></div><strong>'+money(p.price*q(p))+'</strong></div>').join("");$("#checkout-subtotal").textContent=money(total);$("#checkout-total").textContent=money(total)}
