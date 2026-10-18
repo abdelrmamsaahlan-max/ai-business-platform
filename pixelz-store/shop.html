@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111111"><title>المتجر | PIXELZ</title>
+<meta name="description" content="تصفح منتجات PIXELZ لإكسسوارات الجيمينج والـ setup، وابحث بالاسم أو التصنيف ورتب المنتجات حسب السعر.">
+<link rel="icon" type="image/svg+xml" href="/pixelz-logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css"><script defer src="/products.js"></script><script defer src="/shop.js"></script>
+</head>
+<body class="store-page">
+<div class="topline"><span class="pixel-mark">PZ / SHOP</span><span>PIXELZ / PRODUCT CATALOG</span><span class="topline-right">مصر <b>↗</b></span></div>
+<header class="site-header">
+<a class="brand" href="/" aria-label="PIXELZ home"><img src="/pixelz-wordmark.svg" alt="PIXELZ"></a>
+<nav class="desktop-nav" aria-label="القائمة الرئيسية"><a href="/">الرئيسية</a><a href="/shop.html" aria-current="page">المتجر</a><a href="/#categories">التصنيفات</a><a href="/support.html">الدعم</a></nav>
+<div class="header-actions"><a class="bag-button" href="/cart.html"><span>السلة</span><span class="bag-count" id="shop-cart-count">0</span></a></div>
+</header>
+<main class="store-page-shell">
+<nav class="breadcrumb"><a href="/">الرئيسية</a><span>/</span><b>المتجر</b></nav>
+<div class="store-page-heading"><div><p class="eyebrow">PIXELZ SELECT / FULL CATALOG</p><h1>كل الـ <span>gear.</span></h1><p>دور على المنتج، فلتر حسب التصنيف، ورتّب النتائج على حسب اللي يناسبك.</p></div><a class="cta-secondary" href="/support.html">محتاج مساعدة؟ <b>↗</b></a></div>
+<section class="catalog-panel" aria-label="كتالوج المنتجات">
+<div class="shop-toolbar">
+<label class="search-large"><span aria-hidden="true">⌕</span><input id="shop-query" type="search" placeholder="ابحث بالاسم أو الموديل أو النوع..." autocomplete="off"><span class="visually-hidden">ابحث عن المنتجات</span></label>
+<label class="sort-field"><span>ترتيب حسب</span><select id="shop-sort"><option value="recommended">ترتيب الكتالوج</option><option value="price-asc">السعر: من الأقل للأعلى</option><option value="price-desc">السعر: من الأعلى للأقل</option><option value="name">الاسم: أ–ي</option></select></label>
+</div>
+<div class="shop-filter-heading"><b>التصنيف</b><button id="clear-shop-filters" type="button">مسح الفلاتر</button></div>
+<div class="category-list shop-category-list" id="shop-categories" aria-label="فلترة حسب التصنيف"></div>
+<div class="shop-results-bar"><p id="shop-results" role="status" aria-live="polite">جارٍ تحميل المنتجات…</p><a href="/cart.html">عرض السلة ↗</a></div>
+<div class="product-grid" id="shop-product-grid" aria-live="polite"></div>
+<div class="catalog-note"><span class="note-mark">PZ.</span><div><b>خلّي كل التفاصيل واضحة.</b><p>الأسعار بالجنيه المصري. التوفر والشحن النهائي بيتأكدوا معاك قبل اعتماد الطلب.</p></div><a href="/legal.html">معلومات الطلب ↗</a></div>
+</section>
+</main>
+<footer class="footer"><a href="/" class="footer-brand"><img src="/pixelz-wordmark.svg" alt="PIXELZ"><span>YOUR DESK, YOUR RULES.</span></a><div class="footer-note"><b>GEAR FOR YOUR EVERYDAY PLAY.</b><p>متجر Pixelz لإكسسوارات الـ setup والجيمينج في مصر.</p></div><div class="footer-links"><b>المتجر</b><a href="/">الرئيسية</a><a href="/shop.html">كل المنتجات</a><a href="/cart.html">السلة</a></div><div class="footer-links"><b>مساعدة</b><a href="/support.html">الدعم</a><a href="/legal.html">معلومات الطلب والخصوصية</a></div><div class="footer-bottom"><span>© PIXELZ 2026</span><span>MADE FOR YOUR SETUP / EGYPT</span><a href="/">الرئيسية ↑</a></div></footer>
+<div class="toast" id="shop-toast" role="status" aria-live="polite"></div>
+</body></html>
