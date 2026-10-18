@@ -5,7 +5,7 @@ function load(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch{retur
 function price(n){return new Intl.NumberFormat("en-EG").format(n)+" ج.م"}
 function categoryLabel(v){return ({"Keyboard":"كيبوردات","Mouse":"ماوسات","Mouse pad":"ماوس باد","Headset":"سماعات","Laptop cooler":"تبريد لابتوب"})[v]||v}
 function normalizeSearch(v){return String(v??"").normalize("NFKC").toLocaleLowerCase("ar-EG").replace(/[\u064B-\u065F\u0670\u0640]/g,"").replace(/[أإآٱ]/g,"ا").replace(/ى/g,"ي").replace(/ة/g,"ه").trim()}
-function searchAliases(p){return ({keyboard:"keyboard key board كيبورد كيبوردات لوحة مفاتيح combo wireless bluetooth",mouse:"mouse ماوس ماوسات فأره",pad:"pad mousepad mouse pad ماوس باد ماوسباد جل",headset:"headset headphone headphones سماعه سماعات هيدفون هيدسيت gaming audio",cooler:"cooler cooling laptop cooler تبريد قاعدة تبريد مروحة لابتوب"})[p.type]||""}
+function searchAliases(p){return ({keyboard:"keyboard key board كيبورد كيبوردات لوحة مفاتيح",mouse:"mouse ماوس ماوسات فأره",pad:"pad mousepad mouse pad ماوس باد ماوسباد جل",headset:"headset headphone headphones سماعه سماعات هيدفون هيدسيت gaming audio",cooler:"cooler cooling laptop cooler تبريد قاعدة تبريد مروحة لابتوب"})[p.type]||""}
 function matchesQuery(p){const hay=normalizeSearch([p.name,p.en,p.desc,p.details,p.category,categoryLabel(p.category),p.badge,...(p.specs||[]).flat(),searchAliases(p)].join(" "));return normalizeSearch(query).split(/\s+/).filter(Boolean).every(t=>hay.includes(t))}
 function normaliseCart(value){
   if(!value||typeof value!=="object"||Array.isArray(value))return {};
@@ -86,7 +86,7 @@ $("#menu-toggle").addEventListener("click",()=>{const n=$("#mobile-nav"),openNow
 document.querySelectorAll(".mobile-nav a").forEach(a=>a.addEventListener("click",()=>{$("#mobile-nav").hidden=true;$("#menu-toggle").setAttribute("aria-expanded","false");$("#menu-toggle").textContent="☰"}));
 $("#cart-overlay").addEventListener("click",e=>{if(e.target===$("#cart-overlay"))close()});document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#cart-overlay").hidden)close()});
 const observer="IntersectionObserver"in window?new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in-view");observer.unobserve(x.target)}}),{threshold:.12}):null;
-const baseRender=render;render=function(){baseRender();if(window.PIXELZ_PREVIEW_MODE)document.querySelectorAll("#product-grid [data-add]").forEach(b=>{b.disabled=true;b.textContent="الطلبات متوقفة حاليًا"});if(observer)document.querySelectorAll(".product-card:not(.in-view)").forEach(c=>observer.observe(c));else document.querySelectorAll(".product-card").forEach(c=>c.classList.add("in-view"))};
+const baseRender=render;render=function(){baseRender();if(window.PIXELZ_PREVIEW_MODE)document.querySelectorAll("#product-grid [data-add]").forEach(b=>{b.disabled=true;b.textContent="الطلب متوقف"});if(observer)document.querySelectorAll(".product-card:not(.in-view)").forEach(c=>observer.observe(c));else document.querySelectorAll(".product-card").forEach(c=>c.classList.add("in-view"))};
 $("#cart-items").addEventListener("error",e=>{
   const img=e.target.closest("img");
   if(img&&img.parentElement.classList.contains("cart-thumb")){
