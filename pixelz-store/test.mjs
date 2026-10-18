@@ -57,5 +57,5 @@ assert.match(read("shop.html"),/id="shop-search-form"/, "Catalog search must sub
 assert.match(read("legal.html"),/14 يومًا|14 يوما/, "Consumer return information must be visible");
 assert.match(read("checkout.html"),/الطلبات متوقفة مؤقتًا/, "Checkout must be paused in preview mode");
 assert.doesNotMatch(read("checkout.html"),/checkout-form|name="phone"|name="address"/, "Preview checkout must not collect personal details");
-assert.ok(!/https?:\\/\\//i.test(read("products.js")), "Product catalog must not hotlink retailer photos");
+assert.ok(!read("products.js").includes("https://") && !read("products.js").includes("http://"), "Product catalog must not hotlink retailer photos");
 console.log("PIXELZ tests passed: routes/assets, JavaScript syntax, catalog data, subtotal arithmetic, search forms, local illustrations, preview safeguards.");
