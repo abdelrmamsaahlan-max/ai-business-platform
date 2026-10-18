@@ -2,13 +2,15 @@
 
 Arabic RTL storefront for PIXELZ gaming and setup accessories.
 
-- Product catalog with search and category filters.
-- Individual product pages with photos, descriptions and specifications.
-- Shopping bag with quantity controls and a WhatsApp checkout request.
-- Cash-on-delivery request flow; card payments are not active yet.
+## Store features
+- Responsive catalog with live product/category counts, search, and category filters.
+- Product detail pages with model information, descriptions, and specifications.
+- Persistent local shopping bag with quantity controls and graceful image fallbacks.
+- WhatsApp checkout request with Egyptian mobile validation and cash-on-delivery preference.
+- Clear shipping and availability notes. Card payments are not active, and card details are never requested.
 
-## Vercel
-Set the project root directory to \`pixelz-store\`, framework preset to Other/None, build command to \`npm run build\`, and output directory to \`dist\`. The build copies the static storefront without installing dependencies.
+## Vercel configuration
+Set the Vercel project's **Root Directory** to `pixelz-store`, Framework Preset to **Other**, Build Command to `npm run build`, and Output Directory to `dist`. The build is dependency-free and creates a fresh output directory on each run so removed files cannot linger from an older local build.
 
 ## Order flow
-The checkout prepares a WhatsApp message with the selected items and delivery details. A buyer reviews and sends that message to PIXELZ; the store then confirms availability, shipping and payment-on-delivery details. The website does not collect card details.
+Checkout opens a prefilled WhatsApp message for the customer to review and send. PIXELZ must confirm product availability, final product price, shipping cost, delivery time, and cash-on-delivery availability before the order is accepted. The website does not collect card details or submit the order automatically.
