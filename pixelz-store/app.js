@@ -3,6 +3,7 @@ let cart=normaliseCart(load("pixelz-cart",{})),filter="all",query="";
 const $=s=>document.querySelector(s);
 function load(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch{return d}}
 function price(n){return new Intl.NumberFormat("en-EG").format(n)+" ج.م"}
+function categoryLabel(v){return ({"Keyboard":"كيبوردات","Mouse":"ماوسات","Mouse pad":"ماوس باد","Headset":"سماعات","Laptop cooler":"تبريد لابتوب"})[v]||v}
 function normaliseCart(value){
   if(!value||typeof value!=="object"||Array.isArray(value))return {};
   const clean={};
@@ -24,7 +25,7 @@ function qty(){return Object.values(cart).reduce((s,n)=>s+(Number(n)||0),0)}
 function render(){
 const shown=products.filter(p=>(filter==="all"||p.category===filter)&&(p.name+" "+p.en+" "+p.desc+" "+p.category).toLowerCase().includes(query));
 $("#result-count").textContent=shown.length+" "+(shown.length===1?"منتج":"منتجات");
-$("#product-grid").innerHTML=shown.length?shown.map((p,i)=>'<article class="product-card"><a class="card-main" href="/product.html?id='+encodeURIComponent(p.id)+'"><div class="product-visual '+p.type+'">'+art(p)+'</div><div class="product-topline"><span class="product-category">'+p.en.split(" ")[0]+' / '+p.category+'</span></div><h3>'+p.name+'</h3><p class="product-desc">'+p.desc+'</p></a><div class="product-meta"><span>السعر</span><b>'+price(p.price)+'</b></div><div class="product-actions"><button class="add-button" data-add="'+p.id+'">ضيف للسلة <span>＋</span></button><a class="details-button" href="/product.html?id='+encodeURIComponent(p.id)+'" aria-label="تفاصيل '+p.name+'">التفاصيل ↗</a></div></article>').join(""):'<div class="empty-state"><b>ملقيناش حاجة بالبحث ده</b><p>جرّب اسم تاني أو اختار تصنيف مختلف.</p></div>';
+$("#product-grid").innerHTML=shown.length?shown.map((p,i)=>'<article class="product-card"><a class="card-main" href="/product.html?id='+encodeURIComponent(p.id)+'"><div class="product-visual '+p.type+'">'+art(p)+'</div><div class="product-topline"><span class="product-category">'+categoryLabel(p.category)+'</span></div><h3>'+p.name+'</h3><p class="product-desc">'+p.desc+'</p></a><div class="product-meta"><span>السعر</span><b>'+price(p.price)+'</b></div><div class="product-actions"><button class="add-button" data-add="'+p.id+'">ضيف للسلة <span>＋</span></button><a class="details-button" href="/product.html?id='+encodeURIComponent(p.id)+'" aria-label="تفاصيل '+p.name+'">التفاصيل ↗</a></div></article>').join(""):'<div class="empty-state"><b>ملقيناش حاجة بالبحث ده</b><p>جرّب اسم تاني أو اختار تصنيف مختلف.</p></div>';
 }
 function filterBy(v){filter=v;document.querySelectorAll("[data-filter]").forEach(b=>b.classList.toggle("active",b.dataset.filter===v));render()}
 function renderCart(){
