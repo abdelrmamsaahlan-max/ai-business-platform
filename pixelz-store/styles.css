@@ -486,3 +486,66 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 @media (prefers-reduced-motion: reduce) {
   *,*::before,*::after { animation: none !important; transition: none !important; }
 }
+
+
+/* Real icon treatment and product-photo handling */
+.search-icon {
+  display: block;
+  flex: 0 0 auto;
+  width: 19px;
+  height: 19px;
+  color: #555550;
+}
+.searchbox .search-icon { width: 18px; height: 18px; }
+.search-large .search-icon { width: 22px; height: 22px; }
+.category-icon {
+  display: block;
+  flex: 0 0 17px;
+  width: 17px;
+  height: 17px;
+  color: currentColor;
+}
+.category-chip { gap: 9px; }
+.product-line-icon {
+  display: block;
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  color: #73736e;
+}
+.product-image-fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
+  min-height: 150px;
+  padding: 18px;
+  background: #f2f2ef;
+  color: #75756f;
+}
+.product-image-fallback .product-line-icon { width: 54px; height: 54px; color: #74746f; }
+.product-image-fallback span {
+  font: 500 10px var(--font);
+  color: #777771;
+  text-align: center;
+}
+.product-image-fallback-large { min-height: 320px; }
+.product-image-fallback-large .product-line-icon { width: 64px; height: 64px; }
+.cart-thumb > .product-line-icon { width: 28px; height: 28px; color: #777770; }
+.cart-thumb-fallback { display: grid; width: 100%; height: 100%; place-items: center; }
+.cart-thumb-fallback .product-line-icon { width: 28px; height: 28px; }
+.cart-page-thumb > .product-line-icon { width: 32px; height: 32px; }
+.cart-page-image-mark { display: grid; place-items: center; width: 100%; height: 100%; color: #777770; background: #f2f2ef; }
+.cart-page-image-mark .product-line-icon { width: 30px; height: 30px; }
+.checkout-thumb .product-line-icon, .summary-placeholder .product-line-icon {
+  width: 26px; height: 26px; color: #777770;
+}
+.promo-image-placeholder .product-line-icon { width: 25px; height: 25px; color: #73736e; }
+@media (max-width: 760px) {
+  .category-icon { width: 16px; height: 16px; flex-basis: 16px; }
+  .product-image-fallback .product-line-icon { width: 42px; height: 42px; }
+  .product-image-fallback span { font-size: 9px; }
+}
