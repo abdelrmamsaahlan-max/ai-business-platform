@@ -1,111 +1,49 @@
 const products=[
-{id:"mouse1",name:"Lightweight gaming mouse",category:"Mouse",tag:"PRECISION",desc:"A light mouse concept for quicker, controlled movement.",art:"mouse",detail:"Confirm exact model, sensor, weight, cable or wireless type, battery, warranty and supplier stock."},
-{id:"mat1",name:"Extended desk mousepad",category:"Mouse pad",tag:"DESK ESSENTIAL",desc:"More space for your mouse and keyboard on one surface.",art:"mat",detail:"Confirm dimensions, surface material, thickness, stitched edges, real product photos and packaging."},
-{id:"keyboard1",name:"Compact mechanical keyboard",category:"Keyboard",tag:"KEYBOARD",desc:"A compact layout idea for a tidy gaming desk.",art:"keyboard",detail:"Verify layout, key legends/language, switch type, connection, total key count and warranty."},
-{id:"mic1",name:"USB gaming microphone",category:"Mic & Mixers",tag:"VOICE / STREAM",desc:"A mic concept for game chat, calls and creating content.",art:"mic",detail:"Check connection type, included stand/cable, OS compatibility and power requirements."},
-{id:"headset1",name:"Over-ear gaming headset",category:"Headset",tag:"AUDIO",desc:"Comfort and communication for longer sessions.",art:"headset",detail:"Confirm brand and exact model, connection, mic, compatible devices and warranty provider."},
-{id:"controller1",name:"Controller grip accessory",category:"Controllers",tag:"PLAY YOUR WAY",desc:"A grip or thumb-control add-on for selected models.",art:"pad",detail:"Never describe this as universal. Confirm supported models, fit, included parts and material."},
-{id:"cables1",name:"Cable tidy kit",category:"Desk setup",tag:"CLEAN DESK",desc:"Clips and holders to keep desk and charging cables in place.",art:"cables",detail:"Check pieces per pack, supported cable diameter, adhesive strength and residue risk."},
-{id:"stand1",name:"Headset stand",category:"Desk setup",tag:"DESK SETUP",desc:"A place to keep a headset between sessions.",art:"stand",detail:"Check size, stability, material, packaging, shipping damage policy and return address."},
-{id:"hub1",name:"Multi-port USB hub",category:"Desk setup",tag:"MORE PORTS",desc:"Bring common USB connections closer to your setup.",art:"hub",detail:"Verify USB standard, ports, power input, compatibility, safety documents and warranty."},
-{id:"light1",name:"Monitor light bar",category:"Desk setup",tag:"LIGHTING",desc:"A clean lighting idea for the desk or monitor.",art:"light",detail:"Check dimensions, controls, power input, plug, heat and relevant safety documentation."},
-{id:"open1",name:"Inspected open-box gear",category:"Open box",tag:"RE:PLAY",desc:"A future category for condition-graded open-box products.",art:"open",detail:"Only launch after inspection, condition grading, accurate photos, full disclosure, warranty status and return terms are set."}
+{id:"kc6000",name:"طقم ST KC6000 السلكي",en:"ST KC6000 Wired Keyboard & Mouse",category:"Keyboard",type:"keyboard",badge:"كيبورد + ماوس",desc:"طقم سلكي USB بسيط لبداية setup مرتبة.",detail:"مجموعة كيبورد وماوس سلكية من ST. اسألنا عن السعر الحالي والتوفر قبل تأكيد الطلب.",source:"https://shopzawy.com/ar/products/keyboard-and-mouse-combo-st-kc6000-wired/"},
+{id:"kcw6000",name:"طقم ST KCW6000 اللاسلكي",en:"ST KCW6000 Wireless Combo",category:"Keyboard",type:"keyboard",badge:"لاسلكي 2.4GHz",desc:"كيبورد وماوس لاسلكي مع USB nano receiver.",detail:"اتصال لاسلكي 2.4GHz ومدى معلن يصل إلى 10 متر. اسألنا عن السعر الحالي والتوفر قبل تأكيد الطلب.",source:"https://shopzawy.com/ar/products/keyboard-and-mouse-combo-st-kcw6000-wireless/"},
+{id:"tesoro",name:"Tesoro 8200DPI Gaming Mouse",en:"Tesoro Programmable RGB Mouse",category:"Mouse",type:"mouse",badge:"سلكي / RGB",desc:"ماوس جيمينج سلكي بإضاءة RGB وإمكانية البرمجة.",detail:"الكتالوج العام يصفه بأنه ماوس Tesoro سلكي بإضاءة RGB وقابل للبرمجة وبدقة تصل إلى 8200 DPI. أكّد مواصفات النسخة المتاحة قبل الطلب.",source:"https://shopzawy.com/ar/category/computer-and-accessories/"},
+{id:"wolf-pad",name:"Microsoft Wolf Gel Mouse Pad",en:"Wolf 180 × 120 Gel Pad",category:"Mouse pad",type:"pad",badge:"مقاس 180 × 120",desc:"ماوس باد جل صغير يساعدك ترتب مساحة الماوس.",detail:"كتالوج Shopzawy يدرجه باسم Wolf 180 × 120 Gel Mouse Pad. الخامة والنسخة والسعر النهائي تتأكد قبل الطلب.",source:"https://shopzawy.com/ar/products/mouse-pad-jel-color-microsoft-wolf-180-120/"},
+{id:"gm09",name:"Standard GM-09 Gaming Headphone",en:"Standard GM-09 / Black",category:"Headset",type:"headset",badge:"Gaming audio",desc:"سماعة جيمينج over-ear باللون الأسود.",detail:"موديل Standard GM-09 ظاهر بكتالوج Shopzawy. تفاصيل التوصيل والتوافق والضمان تتأكد قبل الطلب.",source:"https://shopzawy.com/en/category/headset/"},
+{id:"gm2100",name:"Standard GM2100LR Surround Headphone",en:"Standard GM2100LR",category:"Headset",type:"headset",badge:"Surround audio",desc:"اختيار تاني للصوت والجيمينج من Standard.",detail:"اسم المنتج في الكتالوج: Standard Surround Headphone ST GM2100LR. راجع التوافق والملحقات معانا قبل الطلب.",source:"https://shopzawy.com/en/products/standard-surround-headphone-st-gm2100lr/"}
 ];
-const whatsappNumber="201142497622";
-let activeFilter="All gear",searchTerm="",sortMode="featured",cart={},wishlist=new Set();
+const waNumber="201142497622";
+let cart=load("pixelz-cart",{}),filter="all",query="";
 const $=s=>document.querySelector(s);
-const order=new Map(products.map((p,i)=>[p.id,i]));
-function artFor(p){
-const a={
-mouse:'<div class="art-mouse-large"></div>',
-mat:'<div class="art-mat-large"><b>PZ.</b><small>STAY IN YOUR ZONE</small></div>',
-keyboard:'<div class="art-board">'+Array.from({length:16},()=>'<i></i>').join("")+'</div>',
-mic:'<div class="art-mic-large"></div>',
-headset:'<div class="art-headset-large"></div>',
-pad:'<div class="art-pad-large"></div>',
-cables:'<div class="art-cables-large"><i></i><i></i><i></i></div>',
-stand:'<div class="art-stand-large"></div>',
-hub:'<div class="art-hub-large"></div>',
-light:'<div class="art-light-large"></div>',
-open:'<div class="art-open-large">PZ<small>RE:PLAY</small></div>'
-};
-return '<div class="product-image"><span class="product-code">PZ / '+String(order.get(p.id)+1).padStart(2,"0")+'</span><button class="wishlist-toggle '+(wishlist.has(p.id)?"active":"")+'" data-wishlist="'+p.id+'" type="button" aria-label="Toggle wishlist for '+p.name+'" aria-pressed="'+wishlist.has(p.id)+'">'+(wishlist.has(p.id)?"♥":"♡")+'</button>'+(a[p.art]||"")+'<span class="concept-label">CONCEPT VISUAL</span></div>';
+function load(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch{return d}}
+function save(){localStorage.setItem("pixelz-cart",JSON.stringify(cart));renderCart()}
+function iconArt(type){return type==="keyboard"?'<div class="gear-art art-keyboard">'+Array.from({length:24},(_,i)=>'<i></i>').join("")+'</div>':type==="mouse"?'<div class="gear-art art-mouse"></div>':type==="pad"?'<div class="gear-art art-pad">PIXELZ<span>.</span></div>':'<div class="gear-art art-headset"></div>'}
+function render(){
+const shown=products.filter(p=>(filter==="all"||p.category===filter)&&(p.name+" "+p.en+" "+p.desc+" "+p.category).toLowerCase().includes(query));
+$("#result-count").textContent=shown.length+" "+(shown.length===1?"منتج":"منتجات");
+$("#product-grid").innerHTML=shown.length?shown.map((p,i)=>'<article class="product-card"><div class="product-visual '+p.type+'"><span class="visual-index">PZ / '+String(products.indexOf(p)+1).padStart(2,"0")+'</span>'+iconArt(p.type)+'<span class="visual-label">PIXELZ / GEAR STUDY</span></div><div class="product-topline"><span class="product-category">'+p.en.split(" ")[0]+' / '+p.category+'</span><span class="product-badge">'+p.badge+'</span></div><h3>'+p.name+'</h3><p class="product-desc">'+p.desc+'</p><div class="product-meta"><span>السعر والتوفر</span><b>يتأكد قبل الطلب</b></div><div class="product-actions"><button class="add-button" data-add="'+p.id+'">ضيف للسلة <span>＋</span></button><button class="details-button" data-details="'+p.id+'" aria-label="تفاصيل '+p.name+'">↗</button></div></article>').join(""):'<div class="empty-state"><b>ملقيناش حاجة بالبحث ده</b><p>جرّب اسم تاني أو اختار تصنيف مختلف.</p></div>';
 }
-function filteredProducts(){
-let items=products.filter(p=>(activeFilter==="All gear"||p.category===activeFilter)&&(p.name+" "+p.category+" "+p.desc).toLowerCase().includes(searchTerm));
-if(sortMode==="name")items.sort((a,b)=>a.name.localeCompare(b.name));
-if(sortMode==="category")items.sort((a,b)=>a.category.localeCompare(b.category)||a.name.localeCompare(b.name));
-return items;
-}
-function renderProducts(){
-const items=filteredProducts();
-$("#product-grid").innerHTML=items.map(p=>'<article class="product-card">'+artFor(p)+'<div class="product-label"><span>'+p.tag+'</span><span class="status-pill">SUPPLIER CHECK PENDING</span></div><h3>'+p.name+'</h3><p>'+p.desc+'</p><div class="product-bottom"><span class="price-pending">PRICE NOT SET</span><button data-details="'+p.id+'" type="button">QUICK VIEW ↗</button><button data-add="'+p.id+'" type="button">ADD TO BAG ＋</button></div></article>').join("");
-$("#empty-results").hidden=items.length>0;
-}
-function setFilter(filter){
-activeFilter=filter;
-document.querySelectorAll("[data-filter]").forEach(b=>{const on=b.dataset.filter===filter;b.classList.toggle("active",on);b.setAttribute("aria-pressed",String(on));});
-renderProducts();
-}
-function renderCounts(){
-$("#cart-count").textContent=Object.values(cart).reduce((a,b)=>a+b,0);
-$("#wishlist-count").textContent=wishlist.size;
-$("#wishlist-title-count").textContent="("+wishlist.size+")";
-$("#cart-title-count").textContent="("+Object.values(cart).reduce((a,b)=>a+b,0)+")";
-}
-function cartRow(p,forWishlist){
-return '<div class="cart-row"><div class="cart-thumb">PZ.</div><div><h3>'+p.name+'</h3><p>Price pending · not available to order</p>'+(forWishlist?'<div class="cart-controls"><button class="remove-item" data-wish-remove="'+p.id+'">REMOVE</button><button data-add="'+p.id+'">ADD TO BAG ＋</button></div>':'<div class="cart-controls"><div class="qty-control"><button data-minus="'+p.id+'" aria-label="Remove one '+p.name+'">−</button><b>'+cart[p.id]+'</b><button data-plus="'+p.id+'" aria-label="Add one '+p.name+'">+</button></div><button class="remove-item" data-remove="'+p.id+'">REMOVE</button></div>')+'</div></div>';
-}
+function filterBy(value){filter=value;document.querySelectorAll("[data-filter]").forEach(b=>b.classList.toggle("active",b.dataset.filter===value));render()}
+function count(){return Object.values(cart).reduce((a,b)=>a+b,0)}
 function renderCart(){
+$("#cart-count").textContent=count();$("#cart-title-count").textContent="("+count()+")";
 const items=products.filter(p=>cart[p.id]);
-$("#cart-items").innerHTML=items.map(p=>cartRow(p,false)).join("");
-$("#cart-empty").hidden=items.length>0;$("#cart-items").hidden=items.length===0;$("#checkout-open").disabled=items.length===0;
-renderCounts();
+$("#cart-items").innerHTML=items.map(p=>'<div class="cart-row"><div class="cart-thumb">'+(p.type==="headset"?"PZ / AUDIO":"PZ / GEAR")+'</div><div><h3>'+p.name+'</h3><p>السعر والتوفر بيتأكدوا قبل الطلب</p><div class="cart-controls"><div class="qty-control"><button data-qty="-1" data-id="'+p.id+'" aria-label="قلل الكمية">−</button><b>'+cart[p.id]+'</b><button data-qty="1" data-id="'+p.id+'" aria-label="زود الكمية">+</button></div><button class="remove-item" data-remove="'+p.id+'">شيل</button></div></div></div>').join("");
+$("#cart-empty").hidden=items.length>0;$("#cart-items").hidden=!items.length;$("#checkout-open").disabled=!items.length;
 }
-function renderWishlist(){
-const items=products.filter(p=>wishlist.has(p.id));
-$("#wishlist-items").innerHTML=items.map(p=>cartRow(p,true)).join("");
-$("#wishlist-empty").hidden=items.length>0;$("#wishlist-items").hidden=items.length===0;
-renderCounts();
-}
-function openLayer(layer){layer.hidden=false;document.body.classList.add("no-scroll")}
-function closeLayer(layer){layer.hidden=true;if(Array.from(document.querySelectorAll(".overlay,.modal-layer")).every(x=>x.hidden))document.body.classList.remove("no-scroll")}
-function addToCart(id){cart[id]=(cart[id]||0)+1;renderCart();openLayer($("#cart-overlay"))}
-function toggleWishlist(id){wishlist.has(id)?wishlist.delete(id):wishlist.add(id);renderProducts();renderWishlist()}
-function details(id){
-const p=products.find(x=>x.id===id);if(!p)return;
-$("#product-modal-content").innerHTML='<p class="eyebrow">'+p.tag+' / SOURCING CONCEPT</p><h2 id="product-modal-title">'+p.name+'</h2><p>'+p.desc+'</p><div class="modal-status"><i></i> STOCK NOT VERIFIED · PRICE NOT SET</div><p>'+p.detail+'</p><p>This is a candidate, not confirmed inventory. Supplier, accurate item photos, real price, shipping, warranty and returns must be checked before sale.</p><button class="button dark full" data-modal-add="'+p.id+'">ADD TO SHORTLIST ＋</button>';
-openLayer($("#product-modal"));
-}
-function setSearch(value){searchTerm=value.trim().toLowerCase();$("#header-search").value=value;$("#product-search").value=value;renderProducts()}
-$("#filter-row").addEventListener("click",e=>{const b=e.target.closest("[data-filter]");if(b)setFilter(b.dataset.filter)});
-$("#category-grid").addEventListener("click",e=>{const b=e.target.closest("[data-category]");if(b){setFilter(b.dataset.category);$("#shop").scrollIntoView({behavior:"smooth"})}});
-document.querySelectorAll("[data-nav-category]").forEach(a=>a.addEventListener("click",()=>{setFilter(a.dataset.navCategory);$("#mobile-nav").hidden=true;$("#menu-toggle").setAttribute("aria-expanded","false");$("#menu-toggle").textContent="☰"}));
-$("#header-search").addEventListener("input",e=>setSearch(e.target.value));
-$("#product-search").addEventListener("input",e=>setSearch(e.target.value));
-$("#sort-by").addEventListener("change",e=>{sortMode=e.target.value;renderProducts()});
-$("#reset-filters").addEventListener("click",()=>{setFilter("All gear");setSearch("");sortMode="featured";$("#sort-by").value="featured"});
-$("#product-grid").addEventListener("click",e=>{const w=e.target.closest("[data-wishlist]"),d=e.target.closest("[data-details]"),a=e.target.closest("[data-add]");if(w){toggleWishlist(w.dataset.wishlist);return}if(d){details(d.dataset.details);return}if(a)addToCart(a.dataset.add)});
-$("#open-cart").addEventListener("click",()=>openLayer($("#cart-overlay")));
-$("#close-cart").addEventListener("click",()=>closeLayer($("#cart-overlay")));
-$("#keep-shopping").addEventListener("click",()=>closeLayer($("#cart-overlay")));
-$("#cart-items").addEventListener("click",e=>{const plus=e.target.closest("[data-plus]"),minus=e.target.closest("[data-minus]"),remove=e.target.closest("[data-remove]"),add=e.target.closest("[data-add]");if(plus)cart[plus.dataset.plus]=(cart[plus.dataset.plus]||0)+1;if(minus){const id=minus.dataset.minus;if(cart[id]>1)cart[id]--;else delete cart[id]}if(remove)delete cart[remove.dataset.remove];if(add)cart[add.dataset.add]=(cart[add.dataset.add]||0)+1;renderCart()});
-$("#open-wishlist").addEventListener("click",()=>{renderWishlist();openLayer($("#wishlist-overlay"))});
-$("#close-wishlist").addEventListener("click",()=>closeLayer($("#wishlist-overlay")));
-$("#wishlist-browse").addEventListener("click",()=>{closeLayer($("#wishlist-overlay"));$("#categories").scrollIntoView({behavior:"smooth"})});
-$("#wishlist-items").addEventListener("click",e=>{const remove=e.target.closest("[data-wish-remove]"),add=e.target.closest("[data-add]");if(remove)wishlist.delete(remove.dataset.wishRemove);if(add)cart[add.dataset.add]=(cart[add.dataset.add]||0)+1;renderWishlist();renderProducts();renderCart();if(add){closeLayer($("#wishlist-overlay"));openLayer($("#cart-overlay"))}});
-$("#checkout-open").addEventListener("click",()=>openLayer($("#checkout-modal")));
-$("#whatsapp-order-form").addEventListener("submit",e=>{
-e.preventDefault();
-const form=new FormData(e.currentTarget),name=String(form.get("name")||"").trim(),area=String(form.get("area")||"").trim();
-const lines=products.filter(p=>cart[p.id]).map(p=>"• "+p.name+" × "+cart[p.id]).join("\n");
-if(!lines){closeLayer($("#checkout-modal"));return}
-const message=["Hi Pixelz! I'd like to ask about these products:","",lines,"","Please confirm the exact model, current availability, final price and delivery cost before I decide.","","Name: "+name,"City / area: "+area,"This is an enquiry only, not a confirmed order."].join("\n");
-window.open("https://wa.me/"+whatsappNumber+"?text="+encodeURIComponent(message),"_blank","noopener,noreferrer");
-closeLayer($("#checkout-modal"));
-});
-document.body.addEventListener("click",e=>{const c=e.target.closest("[data-close]");if(c)closeLayer(c.closest(".modal-layer"));const a=e.target.closest("[data-modal-add]");if(a){const id=a.dataset.modalAdd;closeLayer($("#product-modal"));addToCart(id)}});
-document.querySelectorAll(".overlay,.modal-layer").forEach(layer=>layer.addEventListener("click",e=>{if(e.target===layer)closeLayer(layer)}));
-$("#menu-toggle").addEventListener("click",()=>{const open=$("#mobile-nav").hidden;$("#mobile-nav").hidden=!open;$("#menu-toggle").setAttribute("aria-expanded",String(open));$("#menu-toggle").textContent=open?"×":"☰"});
-document.addEventListener("keydown",e=>{if(e.key==="Escape"){document.querySelectorAll(".overlay,.modal-layer").forEach(layer=>{if(!layer.hidden)closeLayer(layer)})}});
-renderProducts();renderCart();renderWishlist();
+function open(layer){layer.hidden=false;document.body.classList.add("locked")}
+function close(layer){layer.hidden=true;if([...document.querySelectorAll(".overlay,.modal-wrap")].every(x=>x.hidden))document.body.classList.remove("locked")}
+let toastTimer;
+function toast(message){const t=$("#toast");t.textContent=message;t.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),1800)}
+function add(id){cart[id]=(cart[id]||0)+1;save();toast("اتضاف للسلة ✓")}
+function detail(id){const p=products.find(x=>x.id===id);if(!p)return;const text="Hi Pixelz! I have a question about: "+p.name+" — "+p.source;window.open("https://wa.me/"+waNumber+"?text="+encodeURIComponent(text),"_blank","noopener,noreferrer")}
+$("#filter-inline").addEventListener("click",e=>{const b=e.target.closest("[data-filter]");if(b)filterBy(b.dataset.filter)});
+document.querySelector(".category-list").addEventListener("click",e=>{const b=e.target.closest("[data-filter]");if(b){filterBy(b.dataset.filter);$("#shop").scrollIntoView({behavior:"smooth"})}});
+$("#product-grid").addEventListener("click",e=>{const a=e.target.closest("[data-add]"),d=e.target.closest("[data-details]");if(a)add(a.dataset.add);if(d)detail(d.dataset.details)});
+function search(value){query=value.trim().toLowerCase();$("#search-input").value=value;$("#grid-search").value=value;render()}
+$("#search-input").addEventListener("input",e=>search(e.target.value));$("#grid-search").addEventListener("input",e=>search(e.target.value));
+$("#open-cart").addEventListener("click",()=>open($("#cart-overlay")));$("#close-cart").addEventListener("click",()=>close($("#cart-overlay")));$("#keep-shopping").addEventListener("click",()=>close($("#cart-overlay")));
+$("#cart-items").addEventListener("click",e=>{const qty=e.target.closest("[data-qty]"),remove=e.target.closest("[data-remove]");if(qty){const id=qty.dataset.id;cart[id]=(cart[id]||0)+Number(qty.dataset.qty);if(cart[id]<=0)delete cart[id];save()}if(remove){delete cart[remove.dataset.remove];save()}});
+$("#checkout-open").addEventListener("click",()=>open($("#order-modal")));
+$("#order-form").addEventListener("submit",e=>{e.preventDefault();const name=new FormData(e.currentTarget).get("name"),gov=new FormData(e.currentTarget).get("governorate");const lines=products.filter(p=>cart[p.id]).map(p=>"• "+p.name+" × "+cart[p.id]+" — "+p.source);if(!lines.length)return;const msg=["أهلاً Pixelz، عايز أطلب/أستفسر عن المنتجات دي:","",...lines,"","من فضلك أكدلي السعر النهائي والتوفر وتكلفة التوصيل للمحافظة قبل تأكيد الطلب.","","الاسم: "+name,"المحافظة: "+gov,"هأبعت تفاصيل العنوان بعد تأكيد السعر."].join("\n");window.open("https://wa.me/"+waNumber+"?text="+encodeURIComponent(msg),"_blank","noopener,noreferrer");close($("#order-modal"))});
+$("#menu-toggle").addEventListener("click",()=>{const n=$("#mobile-nav"),openNow=n.hidden;n.hidden=!openNow;$("#menu-toggle").setAttribute("aria-expanded",String(openNow));$("#menu-toggle").textContent=openNow?"×":"☰"});
+document.querySelectorAll(".mobile-nav a").forEach(a=>a.addEventListener("click",()=>{$("#mobile-nav").hidden=true;$("#menu-toggle").setAttribute("aria-expanded","false");$("#menu-toggle").textContent="☰"}));
+document.body.addEventListener("click",e=>{const c=e.target.closest("[data-close]");if(c)close(c.closest(".modal-wrap"))});
+$("#cart-overlay").addEventListener("click",e=>{if(e.target===$("#cart-overlay"))close($("#cart-overlay"))});
+$("#order-modal").addEventListener("click",e=>{if(e.target===$("#order-modal"))close($("#order-modal"))});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")document.querySelectorAll(".overlay,.modal-wrap").forEach(x=>{if(!x.hidden)close(x)})});
+render();renderCart();
