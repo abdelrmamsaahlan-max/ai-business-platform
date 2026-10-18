@@ -25,7 +25,7 @@ function updateBuyLink(){const button=$("#buy-product");if(button)button.href="/
 if(!p)location.replace("/shop.html");else{
  document.title=p.name+" | PIXELZ";
  $("#crumb-name").textContent=p.name;
- $("#gallery-index").textContent="PZ / "+String(products.indexOf(p)+1).padStart(2,"0");
+ $("#gallery-index").textContent="";
  $("#product-badge").textContent=p.badge;
  $("#product-category").textContent=categoryLabel(p.category);
  $("#product-en").textContent=p.en;
