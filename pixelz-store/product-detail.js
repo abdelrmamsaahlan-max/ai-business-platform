@@ -21,7 +21,7 @@ function cartCount(){return Object.values(cart).reduce((sum,q)=>sum+(Number(q)||
 function refreshCartCount(){const badge=$("#cart-count");if(badge)badge.textContent=cartCount()}
 function notify(message){const toast=$("#toast");toast.textContent=message;toast.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove("show"),2300)}
 function selectedQuantity(){const input=$("#product-quantity"),value=Math.floor(Number(input.value)||1),safe=Math.min(99,Math.max(1,value));input.value=safe;return safe}
-function updateBuyLink(){const button=$("#buy-product");if(button)button.href="/checkout.html?buy="+encodeURIComponent(p.id)+"&quantity="+selectedQuantity()}
+function updateBuyLink(){const button=$("#buy-product");if(button)button.href=window.PIXELZ_PREVIEW_MODE?"/legal.html":"/checkout.html?buy="+encodeURIComponent(p.id)+"&quantity="+selectedQuantity()}
 if(!p)location.replace("/shop.html");else{
  document.title=p.name+" | PIXELZ";
  $("#crumb-name").textContent=p.name;
@@ -31,17 +31,19 @@ if(!p)location.replace("/shop.html");else{
  $("#product-short").textContent=p.desc;
  $("#product-price").textContent=money(p.price);
  $("#product-details").textContent=p.details;
- $("#product-image").innerHTML=p.image?'<img class="product-main-photo" src="'+esc(p.image)+'" alt="'+esc(p.name)+'" fetchpriority="high">':fallback(p.type);
+ $("#product-image").innerHTML=p.image?'<img class="product-main-photo" src="'+esc(p.image)+'" alt="رسم توضيحي لفئة '+esc(categoryLabel(p.category))+' وليس صورة فعلية للموديل" fetchpriority="high">':fallback(p.type);
  $("#spec-rows").innerHTML=p.specs.map(r=>"<tr><th scope=\"row\">"+esc(r[0])+"</th><td>"+esc(r[1])+"</td></tr>").join("");
  const sameCategory=products.filter(x=>x.id!==p.id&&x.category===p.category);
  const related=(sameCategory.length?sameCategory:products.filter(x=>x.id!==p.id)).slice(0,3);
  $("#related-products").innerHTML=related.map(x=>'<a class="related-card" href="/product.html?id='+encodeURIComponent(x.id)+'"><span>'+esc(x.category)+' / PIXELZ</span><b>'+esc(x.name)+'</b><strong>'+money(x.price)+'</strong><i>التفاصيل ↗</i></a>').join("");
+ if(window.PIXELZ_PREVIEW_MODE){const addButton=$("#add-product"),buyButton=$("#buy-product"),quantityRow=document.querySelector(".product-qty-row");if(addButton){addButton.disabled=true;addButton.textContent="الطلبات متوقفة مؤقتًا"}if(buyButton){buyButton.href="/legal.html";buyButton.textContent="حالة المتجر والسياسات ↗"}if(quantityRow)quantityRow.hidden=true}
  const quantity=$("#product-quantity");
  $("#quantity-minus").addEventListener("click",()=>{quantity.value=Math.max(1,selectedQuantity()-1);updateBuyLink()});
  $("#quantity-plus").addEventListener("click",()=>{quantity.value=Math.min(99,selectedQuantity()+1);updateBuyLink()});
  quantity.addEventListener("input",updateBuyLink);
  quantity.addEventListener("change",()=>{selectedQuantity();updateBuyLink()});
  $("#add-product").addEventListener("click",()=>{
+   if(window.PIXELZ_PREVIEW_MODE){notify("الطلبات متوقفة مؤقتًا؛ راجع صفحة معلومات المتجر.");return}
    const requested=selectedQuantity(),current=Number(cart[p.id])||0;
    if(current>=99){notify("أقصى كمية للمنتج 99");return}
    cart[p.id]=Math.min(99,current+requested);
