@@ -53,13 +53,18 @@ PIXELZ
 
 ## Product shortlist to request (not yet committed)
 
-Ask for exact available SKUs in these categories, in this order:
-1. Affordable wired gaming mouse.
-2. Reliable wired gaming keyboard or keyboard/mouse bundle.
-3. Budget gaming headset with clearly stated connection and compatibility.
-4. Mechanical keyboard (for example, an AULA or Redragon model).
-5. Extended mousepad / desk mat.
-6. Wireless gaming mouse and higher-priced models only after the first group is validated.
+Ask Essawy for a quote and availability on these exact candidate models/categories first:
+1. **Redragon S102** wired keyboard + mouse combo — retail reference only: https://www.gamesworldegypt.com/redragon-s102-yaksaenemeanlion-gaming-combo-keyboarde-mouse
+2. **Redragon K552 Kumara** TKL keyboard — market reference only: https://qarenly.com/en/uptodate/redragon-k552-kumara-mechanical-gaming-keyboard-black-10282
+3. **Redragon K617 Fizz** 60% keyboard — market reference only: https://connect4techs.com/hardware-prices/redragon-k617-fizz/
+4. **AULA F75 Max** 75% keyboard — market reference only: https://plugz-eg.com/shop/
+5. **Redragon M612 Predator** wired gaming mouse — market reference only: https://www.qualityeg.com/shop/m612-redragon-gaming-mouse-predator-m612-rgb-4103
+6. **Redragon H510 Zeus-X** headset — market reference only: https://www.jumia.com.eg/redragon-h510-zeus-x-rgb-wired-gaming-headset-black-134935568.html
+7. **Extended 90 × 40 cm mousepad** — only if the supplier confirms an exact available model and approved image.
+
+These are candidate SKUs, not confirmed supplier inventory. Some linked retail products may be sold out or have different model variants. Verify every SKU, language layout, switch, connector, color, warranty and current selling price before publishing. For example, the current K617 market page lists 6 retail offers and prices as of 15 October 2026; that does not say what an authorized reseller will pay.
+
+The Pixelz catalog's displayed prices are **market references only**, not wholesale costs or promises that Pixelz can sell at that price. Do not calculate a profit margin until the supplier has quoted its price and fulfilment costs.
 
 Do not decide a product using headline retail prices alone. Compare the supplier's actual cost, shipping, packaging, payment fees, failed delivery/return costs and realistic selling price. Retail listings at Plugz are useful only for market comparison, not supplier quotations or permission to reuse images. For example, Plugz publicly lists some AULA and Logitech/ATTACK SHARK products, while stock statuses can change: https://plugz-eg.com/shop/
 
@@ -87,7 +92,7 @@ Never commit account passwords, cookies, private API keys or payout credentials 
 ## Status
 
 - Storefront redesign: committed to `pixelz-store` branch; fresh Vercel deployment is currently blocked by the deployment API's free-per-day quota.
-- Main product direction: keyboards, mice, headsets and mousepads.
+- Catalog: 8 candidate products (Redragon S102, K552, K617, M612, H510, AULA F75 Max, Logitech G305 market comparison, and extended mousepad).
 - First local supplier to ask: Essawy Group, pending quote and proof of single-order fulfilment.
 - Supplier account/contract/API: not connected.
 - Exact supplier SKUs/prices/stock: not yet verified.
